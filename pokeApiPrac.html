@@ -65,7 +65,7 @@
       shinyButton = document.getElementById('shiny-button'),
       shinyCount=true,
       //포켓몬 수 지정은 여기서 할 것
-      addPokeNum = 20,
+      addPokeNum = 40,
       //li내 이미지 위치(한꺼번에 바뀌게끔 임시로 만듦)
       liImgLocate = 0,
     ]
@@ -132,9 +132,7 @@
 
     //한국어 포켓몬 이름
     const pokeNameData = [];
-    // const pokeNumbers = [];
-    // const pokeAllset = {};
-    let numbers = 133;
+    let numbers = 500;
     for(let i=1;i<numbers;i++){
       const xhr = new XMLHttpRequest;
       const URL = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
@@ -142,34 +140,25 @@
       xhr.send();
       xhr.addEventListener('load',function (){
         const pokeData = JSON.parse(xhr.response)
-        // console.dir(pokeData)
-        // console.log(pokeData.names[2].name)
-        // pokeName[i]=pokeNameData.push(pokeData.names[2].name)
-        // console.log(pokeName)
-        // console.log()
-        // pokeNameData.push(pokeData.names[2].name)
-        // pokeNumbers.push(pokeData.id)
+
         pokeNameData.push([pokeData.id,pokeData.names[2].name])
-        // setTimeout(pokeNameData.push([pokeData.id,pokeData.names[2].name]),2000)
+        pokeNameData.sort((a, b) => a[0]-b[0])
+        // setTimeout(function(){pokeNameData.push([pokeData.id,pokeData.names[2].name])},1000)
+        
+        // console.log(pokeData)
       })
     } //function안의 for문 끝부분
     // Object.keys(pokeNameData)
     
     
-    
-    pokeNameData.sort(setTimeout(
-      function(a, b){
-        if(a > b) return 1;
-        if(a === b) return 0;
-        if(a < b) return -1;
-        
-      }),500)
+    console.log(typeof(pokeNameData))
       
-      console.log(pokeNameData)
+    
+      
     
     
     // Object.values(pokeNameData)
-    // console.log(pokeNameData)
+    console.log(pokeNameData)
     // console.log(pokeNumbers)  
     // const pokemonDataSet = [pokeNumbers,pokeNameData]
 
