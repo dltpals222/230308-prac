@@ -74,7 +74,7 @@
     tagInnerText(shinyButton,"이로치") //버튼 텍스트 입력
 
 
-    //포켓몬 수 지정
+    //포켓몬 수 지정하면 알아서 li를 늘리기
     makeTag(ul,'li',addPokeNum);
 
 
@@ -130,22 +130,28 @@
 
 
 
-    //한국어 이상해씨 이름 주소
+    //한국어 포켓몬 이름
     const xhr = new XMLHttpRequest
-    const URL = 'https://pokeapi.co/api/v2/';
-    // for(let i=0;i<addPokeNum;i++){
-    // URL.push(`https://pokeapi.co/api/v2/pokemon-species/${i+1}`)
-    // }
-    // console.log(URL);
-    xhr.open('get',URL);
-    xhr.send();
-    xhr.addEventListener('load',function(){
-      const pokeDate = JSON.parse(xhr.response)
-      const pokeSpecies = pokeDate['pokemon-species'] + "1";
-      // for(let i=0;i<addNum;i++){
+    const URL = [];
+    const pokeNameCollector = [];
+    for(let i=0;i<addPokeNum;i++){
+      URL.push(`https://pokeapi.co/api/v2/pokemon-species/${i+1}`)
+      // const URL = `https://pokeapi.co/api/v2/pokemon-species/1`
+    }//바깥for문 끝 
+      xhr.open('get',URL[i]);
+      xhr.send();
+      xhr.addEventListener('load',function(){
+        const pokeDate = JSON.parse(xhr.response);
+        for(let i =0; i<pokeNameCollector.length;i++){
+        pokeNameCollector.push(pokeDate.names[2].name);
         
-      // }
-    })
+        //   console.log(pokeSpecies)
+        //   for(let i=0;i<addPokeNum;i++){
+          //   }
+          //   console.table(pokeSpecies)
+        }//내부 for끝
+        })//addeventlistener 끝
+console.log(pokeNameCollector)
   </script>
 </body>
 </html>
